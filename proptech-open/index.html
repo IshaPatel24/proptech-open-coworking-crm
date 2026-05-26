@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropSpace — Coworking CRM + ERP Platform</title>
+<link rel="stylesheet" href="src/styles/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-bar">
+      <div class="logo">
+        <div class="logo-icon">🏢</div>
+        <div>
+          PropSpace
+          <sub>CRM · ERP · OPS</sub>
+        </div>
+      </div>
+    </div>
+    <div class="center-picker">
+      <select class="center-select" id="centerSelect" onchange="selectCenter(this.value)">
+        <option value="all">🌐 All Centers</option>
+        <option value="hsr">📍 HSR Layout</option>
+        <option value="koramangala">📍 Koramangala</option>
+        <option value="whitefield">📍 Whitefield</option>
+        <option value="indiranagar">📍 Indiranagar</option>
+      </select>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">Overview</div>
+      <div class="nav-item active" onclick="showPanel('dashboard')">
+        <span class="nav-icon">📊</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('floors')">
+        <span class="nav-icon">🗺️</span><span>Floor Map</span>
+      </div>
+      <div class="nav-section">Sales CRM</div>
+      <div class="nav-item" onclick="showPanel('leads')">
+        <span class="nav-icon">🎯</span><span>Lead Pipeline</span>
+        <span class="nav-badge" id="badge-leads">7</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('clients')">
+        <span class="nav-icon">👥</span><span>Clients</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('renewals')">
+        <span class="nav-icon">🔄</span><span>Renewals</span>
+        <span class="nav-badge amber" id="badge-renewals">3</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('proposals')">
+        <span class="nav-icon">📋</span><span>Proposals</span>
+      </div>
+      <div class="nav-section">Operations</div>
+      <div class="nav-item" onclick="showPanel('visitors')">
+        <span class="nav-icon">🚪</span><span>Visitor Mgmt</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('bookings')">
+        <span class="nav-icon">📅</span><span>Room Booking</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('tickets')">
+        <span class="nav-icon">🎫</span><span>Tickets</span>
+        <span class="nav-badge" id="badge-tickets">5</span>
+      </div>
+      <div class="nav-section">Finance</div>
+      <div class="nav-item" onclick="showPanel('finance')">
+        <span class="nav-icon">💰</span><span>Billing &amp; Finance</span>
+      </div>
+      <div class="nav-section">Team</div>
+      <div class="nav-item" onclick="showPanel('team')">
+        <span class="nav-icon">🏗️</span><span>Team &amp; Tasks</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('settings')">
+        <span class="nav-icon">⚙️</span><span>Settings</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar">RM</div>
+        <div>
+          <div style="font-size:12px;font-weight:500">Rohan Malhotra</div>
+          <div style="font-size:10px;color:var(--text3)">Center Head · Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="panelTitle">Multi-Center Dashboard</div>
+        <div class="topbar-sub" id="panelSub">All Centers · May 24, 2026</div>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-actions">
+        <button class="btn" onclick="openModal('newClient')">+ New Client</button>
+        <button class="btn" onclick="openModal('newLead')">+ New Lead</button>
+        <button class="btn primary" onclick="openModal('bookRoom')">Book Room</button>
+        <div class="notif-btn" onclick="toggleNotifications()" title="Notifications">
+          🔔<span class="notif-dot"></span>
+        </div>
+        <div class="avatar large">RM</div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION DRAWER -->
+    <div class="notif-drawer" id="notifDrawer">
+      <div class="notif-head">Notifications <span class="badge red">8 new</span></div>
+      <div class="notif-item unread">
+        <div class="notif-icon" style="background:rgba(240,75,106,0.15)">⚠️</div>
+        <div><div class="notif-title">Cloudtail renewal due in 8 days</div><div class="notif-sub">₹2.4L MRR at risk · Whitefield</div></div>
+      </div>
+      <div class="notif-item unread">
+        <div class="notif-icon" style="background:rgba(34,201,138,0.15)">✓</div>
+        <div><div class="notif-title">Razorpay India onboarded</div><div class="notif-sub">12 seats · HSR Layout · 2 min ago</div></div>
+      </div>
+      <div class="notif-item unread">
+        <div class="notif-icon" style="background:rgba(240,75,106,0.15)">🎫</div>
+        <div><div class="notif-title">Ticket #T-041 escalated</div><div class="notif-sub">AC not working · Indiranagar Floor 2</div></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(79,142,247,0.15)">📅</div>
+        <div><div class="notif-title">Conf Room Skyline booked</div><div class="notif-sub">Koramangala · 10:00–11:00 AM</div></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(123,92,245,0.15)">🚪</div>
+        <div><div class="notif-title">Walk-in: Ananya Sharma</div><div class="notif-sub">HSR Layout · 09:42 AM · Registered</div></div>
+      </div>
+    </div>
+
+    <div class="content" id="mainContent"></div>
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()" id="modalBox">
+    <div class="modal-head">
+      <span id="modalTitle">Dialog</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="src/data/mockData.js"></script>
+<script src="src/components/panels.js"></script>
+<script src="src/components/app.js"></script>
+</body>
+</html>
